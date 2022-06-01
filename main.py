@@ -9,13 +9,13 @@ def download_file(url, filename):
 	response = requests.get(url, headers=headers, stream=True)
 
 	with open(filename, 'wb') as f:
-			pbar = tqdm(unit="B", unit_scale=True, unit_divisor=1024, total=int(response.headers['Content-Length']))
-			pbar.clear()  #  clear 0% info
-			for chunk in response.iter_content(chunk_size=1024):
-					if chunk: # filter out keep-alive new chunks
-							pbar.update(len(chunk))
-							f.write(chunk)
-			pbar.close()
+		pbar = tqdm(unit="B", unit_scale=True, unit_divisor=1024, total=int(response.headers['Content-Length']))
+		pbar.clear()  #  clear 0% info
+		for chunk in response.iter_content(chunk_size=1024):
+			if chunk: # filter out keep-alive new chunks
+				pbar.update(len(chunk))
+				f.write(chunk)
+		pbar.close()
 	return filename
 
 def main():
